@@ -1,0 +1,12 @@
+{
+  "name": "p12-front-end-dashboard",
+  "dockerFile": "../Dockerfile",
+  "context": "..",
+  "postCreateCommand": "yarn install",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode-remote.remote-containers"]
+    }
+  }
+}

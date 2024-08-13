@@ -1,0 +1,15 @@
+@import '../../assets/style/variables';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 1024px;
+  height: 91px;
+  background: $black;
+  color: $white;
+  font-size: $big;
+  font-weight: $bold;
+  margin-left: 28px;
+  margin-right: 91px;
+}
