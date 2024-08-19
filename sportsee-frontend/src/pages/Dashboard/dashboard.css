@@ -1,9 +1,12 @@
 .main {
   position: absolute;
-  left: 8%;
-  top: 9%;
+  left: 15%;
+  top: 16%;
+  width: 78%;
+  height: 76%;
 }
 
 .title {
   display: flex;
+  flex-direction: column;
 }/*# sourceMappingURL=dashboard.css.map */
