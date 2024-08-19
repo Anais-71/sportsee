@@ -1,0 +1,26 @@
+@import '../../assets/style/variables';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  min-width: 1024px;
+  height: 10%;
+  background: $black;
+  color: $white;
+  font-size: $big;
+  font-weight: $bold;
+  padding: 18px 91px 12px 28px;
+
+  &__logo {
+    width: 178px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin-left: 149px;
+  }
+}

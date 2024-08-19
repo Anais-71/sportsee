@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  min-width: 1024px;
+  height: 10%;
+  background: #020203;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 18px 91px 12px 28px;
+}
+.header__logo {
+  width: 178px;
+}
+.header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  margin-left: 149px;
+}/*# sourceMappingURL=header.css.map */
