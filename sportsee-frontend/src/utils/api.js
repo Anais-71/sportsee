@@ -38,6 +38,8 @@ export const getUser = async (id, isMock) => {
     }
   }
 
+  console.log('Received user data:', userData) // <--- Ajoutez cette ligne
+
   // Create an instance of the User class with the fetched data
   return new User(userData)
 }

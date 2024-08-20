@@ -32,6 +32,26 @@ export class User {
      * @type {string}
      */
     this.email = getUserData?.data?.userInfos?.email || ''
+
+    /**
+     * @type {number}
+     */
+    this.calorieCount = getUserData?.data?.keyData?.calorieCount || 0
+
+    /**
+     * @type {number}
+     */
+    this.proteinCount = getUserData?.data?.keyData?.proteinCount || 0
+
+    /**
+     * @type {number}
+     */
+    this.carbohydrateCount = getUserData?.data?.keyData?.carbohydrateCount || 0
+
+    /**
+     * @type {number}
+     */
+    this.lipidCount = getUserData?.data?.keyData?.lipidCount || 0
   }
 }
 

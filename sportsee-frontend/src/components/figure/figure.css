@@ -1,0 +1,30 @@
+.figures {
+  display: flex;
+  flex-direction: column;
+  gap: 39px;
+}
+
+.figure {
+  background-color: #fbfbfb;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.figure__icon {
+  width: 60px;
+  margin: 32px 24px 32px 32px;
+}
+.figure__txt {
+  margin-top: 39px;
+}
+.figure__txt--nb {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.figure__txt--title {
+  margin-top: 14px;
+  margin-bottom: 35px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #74798c;
+}/*# sourceMappingURL=figure.css.map */

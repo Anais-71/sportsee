@@ -5,8 +5,35 @@
   width: 78%;
   height: 76%;
 }
-
-.title {
+.main .title {
   display: flex;
   flex-direction: column;
+  margin-bottom: 77px;
+}
+.main .title__welcome {
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 41px;
+}
+.main .title__welcome--name {
+  color: #e60000;
+}
+.main .graphs {
+  width: 74%;
+  gap: 30px;
+}
+.main .graphs__main {
+  background-color: #fbfbfb;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.main .figures {
+  width: 23%;
+  min-width: 220px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 31px;
 }/*# sourceMappingURL=dashboard.css.map */

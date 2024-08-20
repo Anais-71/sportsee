@@ -1,20 +1,46 @@
+@import '../../assets/style/variables';
+
 .main {
   position: absolute;
   left: 15%;
   top: 16%;
   width: 78%;
   height: 76%;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 77px;
+
+    &__welcome {
+      font-weight: $bold;
+      font-size: $title;
+      margin-bottom: 41px;
+
+      &--name {
+        color: $main;
+      }
+    }
+  }
+  .graphs {
+    width: 74%;
+    gap: 30px;
+
+    &__main {
+      background-color: $background;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+  }
+
+  .figures {
+    width: 23%;
+    min-width: 220px;
+  }
 }
-.title {
+
+.content {
   display: flex;
-  flex-direction: column;
-
-  &__welcome {
-    font-weight: $bold;
-    font-size: $title;
-  }
-
-  &__name {
-    color: $main;
-  }
+  flex-direction: row;
+  gap: 31px;
 }
