@@ -1,0 +1,17 @@
+@import '../../../assets/style/variables';
+
+.graph {
+  &__title {
+    font-weight: $bold;
+  }
+
+  &__bars {
+    width: 100%;
+    &--bar {
+      width: 7px;
+      height: 81px;
+      border-radius: 3px 3px 0px 0px;
+      color: $black;
+    }
+  }
+}

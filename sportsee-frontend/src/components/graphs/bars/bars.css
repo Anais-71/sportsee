@@ -1,0 +1,12 @@
+.graph__title {
+  font-weight: 500;
+}
+.graph__bars {
+  width: 100%;
+}
+.graph__bars--bar {
+  width: 7px;
+  height: 81px;
+  border-radius: 3px 3px 0px 0px;
+  color: #020203;
+}/*# sourceMappingURL=bars.css.map */

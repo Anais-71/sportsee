@@ -5,18 +5,23 @@ export class User {
   /**
    * Create a User.
    * @param {Object} getUserData - The user data.
-   * @param {Object} getUserData.data - The data object containing user information.
-   * @param {number} [getUserData.data.userId=null] - The user's ID.
+   * @param {number} [getUserData.data.id=null] - The user's ID.
    * @param {Object} getUserData.data.userInfos - The user's information.
    * @param {string} [getUserData.data.userInfos.firstName=''] - The user's first name.
    * @param {string} [getUserData.data.userInfos.lastName=''] - The user's last name.
-   * @param {string} [getUserData.data.userInfos.email=''] - The user's email.
+   * @param {number} [getUserData.data.userInfos.age=null] - The user's age.
+   * @param {number} [getUserData.data.score=0] - The user's score.
+   * @param {Object} getUserData.data.keyData - The user's key nutritional data.
+   * @param {number} [getUserData.data.keyData.calorieCount=0] - The user's calorie count.
+   * @param {number} [getUserData.data.keyData.proteinCount=0] - The user's protein count.
+   * @param {number} [getUserData.data.keyData.carbohydrateCount=0] - The user's carbohydrate count.
+   * @param {number} [getUserData.data.keyData.lipidCount=0] - The user's lipid count.
    */
   constructor(getUserData) {
     /**
      * @type {number|null}
      */
-    this.id = getUserData?.data?.userId || null
+    this.id = getUserData?.data?.id || null
 
     /**
      * @type {string}
@@ -29,9 +34,14 @@ export class User {
     this.lastName = getUserData?.data?.userInfos?.lastName || ''
 
     /**
-     * @type {string}
+     * @type {number|null}
      */
-    this.email = getUserData?.data?.userInfos?.email || ''
+    this.age = getUserData?.data?.userInfos?.age || null
+
+    /**
+     * @type {number}
+     */
+    this.score = getUserData?.data?.score || 0
 
     /**
      * @type {number}

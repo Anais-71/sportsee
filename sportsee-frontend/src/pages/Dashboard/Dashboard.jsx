@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { getUser, getUserActivity } from '../../utils/api'
+
+//css
 import './dashboard.css'
-import { getUser } from '../../utils/api'
-import Figure from '../../components/figure/Figure'
 
 //icons
 import caloriesIcon from '../../assets/icons/calories-icon.png'
@@ -10,45 +11,39 @@ import proteinIcon from '../../assets/icons/protein-icon.png'
 import carbsIcon from '../../assets/icons/carbs-icon.png'
 import fatIcon from '../../assets/icons/fat-icon.png'
 
-/**
- * Dashboard component that displays a welcome message to the user
- * and congratulates them on achieving their goals.
- *
- * @param {Object} props - The properties passed to the component.
- * @param {boolean} props.isMock - Determines whether to use mock data or fetch real data.
- * @returns {JSX.Element} The rendered Dashboard component.
- */
+//components
+import Figure from '../../components/figure/Figure'
+import BarChart from '../../components/graphs/bars/Bars'
+
 const Dashboard = ({ isMock }) => {
   const { id } = useParams() // Retrieve the user ID from the URL
   const [user, setUser] = useState(null) // State to store user data
+  const [activity, setActivity] = useState(null) // State to store user activity data
 
   useEffect(() => {
-    /**
-     * Fetches user data and updates the state.
-     * Logs an error to the console if the fetch fails.
-     *
-     * @async
-     * @function getDatas
-     * @returns {Promise<void>} A promise that resolves when the user data is fetched and state is updated.
-     */
     async function getDatas() {
       try {
-        const userModel = await getUser(id, isMock) // Fetch user data from the API
-        setUser(userModel) // Update state with the fetched user data
+        const userModel = await getUser(id, isMock)
+
+        setUser(userModel)
+        console.log('User Data:', userModel)
+
+        const activityData = await getUserActivity(id, isMock)
+        console.log('Activity Data:', activityData)
+        setActivity(activityData)
       } catch (error) {
-        console.error('Error:', error) // Log an error if the data fetch fails
+        console.error('Error:', error)
       }
     }
 
-    getDatas() // Call the function to fetch user data
+    getDatas()
   }, [id, isMock]) // Dependencies for useEffect: runs whenever id or isMock changes
 
-  // Check if user data is available before accessing the user's stats
   const figuresData = user
     ? [
         {
           title: 'Calories',
-          nb: `${user.calorieCount || 0}kCal`, // Default to 0 if undefined
+          nb: `${user.calorieCount || 0}kCal`,
           imageSrc: caloriesIcon,
         },
         {
@@ -76,7 +71,6 @@ const Dashboard = ({ isMock }) => {
           Bonjour{' '}
           <span className="title__welcome--name">
             {user ? user.firstName : ' '}
-            {/* Display the user's first name if available, otherwise show white space */}
           </span>
         </div>
         <div className="title__subtitle">
@@ -85,7 +79,10 @@ const Dashboard = ({ isMock }) => {
       </div>
       <div className="content">
         <div className="graphs">
-          <div className="graphs__main">TEST</div>
+          <div className="graphs__main">
+            {activity ? <BarChart data={activity} /> : 'Loading...'}{' '}
+            {/* Pass activity data to BarChart */}
+          </div>
           <div className="graphs__sub">TEST</div>
         </div>
         <div className="figures">
