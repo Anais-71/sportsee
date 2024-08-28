@@ -24,8 +24,8 @@
 }
 .main .graphs__main {
   background-color: #fbfbfb;
-  width: 100%;
   margin-bottom: 30px;
+  padding: 24px 29px 23px 32px;
 }
 .main .figures {
   width: 23%;

@@ -8,8 +8,6 @@ import {
 } from '../data'
 
 export const getUser = async (id, isMock) => {
-  console.log('Fetching user with ID:', id) // Vérifie l'ID
-
   if (!id) {
     console.error('User ID is not provided.')
     return null
@@ -27,15 +25,12 @@ export const getUser = async (id, isMock) => {
   } else {
     try {
       const response = await axios.get(`http://localhost:3000/user/${id}`)
-      console.log('API Response:', response.data) // Log la réponse complète de l'API
       userData = response.data
     } catch (error) {
       console.error('Error fetching user data:', error)
       throw error
     }
   }
-
-  console.log('userData before creating User instance:', userData)
   return new User(userData)
 }
 

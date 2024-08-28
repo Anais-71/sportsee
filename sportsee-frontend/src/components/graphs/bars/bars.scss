@@ -3,15 +3,49 @@
 .graph {
   &__title {
     font-weight: $bold;
+    margin-bottom: 64.5px;
+    margin-top: 0px;
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 320px;
   }
 
   &__bars {
     width: 100%;
     &--bar {
       width: 7px;
-      height: 81px;
       border-radius: 3px 3px 0px 0px;
       color: $black;
+    }
+  }
+
+  &__x {
+    &--tick {
+      font-size: 0.875rem;
+      color: $grey-font;
+
+      line {
+        color: transparent;
+      }
+    }
+    &--domain {
+      color: $line;
+    }
+  }
+
+  &__y {
+    &--tick {
+      font-size: 0.875rem;
+      color: $grey-font;
+      line {
+        color: transparent;
+      }
+    }
+    &--domain {
+      color: transparent;
     }
   }
 }

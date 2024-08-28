@@ -1,12 +1,38 @@
 .graph__title {
   font-weight: 500;
+  margin-bottom: 64.5px;
+  margin-top: 0px;
+}
+.graph__container {
+  position: relative;
+  width: 100%;
+  height: 320px;
 }
 .graph__bars {
   width: 100%;
 }
 .graph__bars--bar {
   width: 7px;
-  height: 81px;
   border-radius: 3px 3px 0px 0px;
   color: #020203;
+}
+.graph__x--tick {
+  font-size: 0.875rem;
+  color: #9b9eac;
+}
+.graph__x--tick line {
+  color: transparent;
+}
+.graph__x--domain {
+  color: #dedede;
+}
+.graph__y--tick {
+  font-size: 0.875rem;
+  color: #9b9eac;
+}
+.graph__y--tick line {
+  color: transparent;
+}
+.graph__y--domain {
+  color: transparent;
 }/*# sourceMappingURL=bars.css.map */
