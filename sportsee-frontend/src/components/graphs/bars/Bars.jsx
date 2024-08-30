@@ -1,91 +1,156 @@
-import React, { useEffect, useRef } from 'react'
-import * as d3 from 'd3'
+import React from 'react'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceLine,
+} from 'recharts'
 import './bars.css'
 
-function BarChart({ data }) {
-  const svgRef = useRef()
-
-  useEffect(() => {
-    if (!data || !data.sessions) return // Vérifiez que les données sont présentes
-
-    // Calculer la largeur disponible du conteneur
-    const containerWidth = svgRef.current.parentElement.clientWidth
-
-    // Définir les dimensions du graphique
-    const width = containerWidth
-    const height = 300 // Hauteur fixe
-    const margin = { top: 40, right: 29, bottom: 30, left: 43 } // Marges spécifiées
-
-    const dataset = data.sessions.map((session) => session.kilogram)
-    const dates = data.sessions.map((session) =>
-      new Date(session.day).toLocaleDateString('fr-FR', {
-        weekday: 'short',
-        day: 'numeric',
-      }),
-    )
-
-    const nbBar = dataset.length
-    const spaceBetweenBar = 5
-    const widthBar = (width - margin.left - margin.right) / nbBar
-
-    const scale = d3
-      .scaleLinear()
-      .domain([0, d3.max(dataset)])
-      .range([height - margin.bottom - margin.top, 0])
-
-    const svg = d3
-      .select(svgRef.current)
-      .attr('width', width)
-      .attr('height', height + margin.top)
-
-    svg.selectAll('*').remove()
-
-    svg
-      .append('text')
-      .attr('class', 'graph__title')
-      .attr('y', margin.top / 2)
-      .attr('x', margin.left)
-      .text('Activité quotidienne')
-
-    const bars = svg
-      .append('g')
-      .attr('class', 'graph__bars')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-
-    bars
-      .selectAll('rect')
-      .data(dataset)
-      .enter()
-      .append('rect')
-      .attr('class', 'graph__bars--bar')
-      .attr('x', (d, i) => i * widthBar)
-      .attr('y', (d) => scale(d))
-      .attr('height', (d) => height - margin.bottom - margin.top - scale(d))
-      .attr('width', widthBar - spaceBetweenBar)
-
-    // Ajout des axes
-    const xAxis = d3.axisBottom(
-      d3
-        .scaleBand()
-        .domain(dates)
-        .range([0, width - margin.left - margin.right]),
-    )
-
-    const yAxisRight = d3.axisRight(scale)
-
-    svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-      .call(xAxis)
-
-    svg
-      .append('g')
-      .attr('transform', `translate(${width - margin.right}, ${margin.top})`)
-      .call(yAxisRight)
-      .attr('class', 'y-axis-right')
-  }, [data])
-
-  return <svg ref={svgRef} style={{ width: '100%' }}></svg>
+const CustomBar = (props) => {
+  const { x, y, width, height, fill } = props
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        fill={fill}
+        rx={3}
+        ry={3}
+      />
+      <rect x={x} y={y + height - 4} width={width} height={4} fill={fill} />
+    </g>
+  )
 }
 
-export default BarChart
+function BarChartComponent({ data }) {
+  if (!data || !data.sessions) return null
+
+  const formattedData = data.sessions.map((session) => ({
+    date: new Date(session.day).toLocaleDateString('fr-FR', {
+      day: 'numeric',
+    }),
+    kilogram: session.kilogram,
+  }))
+
+  const values = formattedData.map((d) => d.kilogram)
+  const maxValue = Math.max(...values)
+  const minValue = Math.min(...values)
+
+  // Ajustement de l'échelle minimale et maximale
+  let minScale = minValue - 1
+  let maxScale = maxValue
+
+  // Création de tous les ticks pour l'axe Y
+  const ticks = []
+  for (let i = minScale; i <= maxScale; i++) {
+    ticks.push(i)
+  }
+
+  return (
+    <div className="graph">
+      <div className="graph__header">
+        <h2 className="graph__header--title">Activité quotidienne</h2>
+        <ul
+          className="recharts-default-legend"
+          style={{
+            padding: 0,
+            margin: 0,
+            textAlign: 'right',
+            listStyle: 'none',
+          }}
+        >
+          <li
+            className="recharts-legend-item legend-item-0"
+            style={{ display: 'inline-block', marginRight: '10px' }}
+          >
+            <svg
+              className="recharts-surface"
+              width="8"
+              height="8"
+              viewBox="0 0 32 32"
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                marginRight: '4px',
+              }}
+            >
+              <path
+                fill="#282D30"
+                cx="16"
+                cy="16"
+                className="recharts-symbols"
+                transform="translate(16, 16)"
+                d="M16,0A16,16,0,1,1,-16,0A16,16,0,1,1,16,0"
+              ></path>
+            </svg>
+            <span
+              className="recharts-legend-item-text"
+              style={{ color: '#282D30' }}
+            >
+              <span className="graph__header--legend--txt">Poids (kg)</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <ResponsiveContainer width="100%" height={320}>
+        <BarChart
+          data={formattedData}
+          margin={{ top: 40, right: 29, bottom: 30, left: 43 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis
+            dataKey="date"
+            tickLine={false}
+            axisLine={{ stroke: '#DEDEDE' }}
+            tick={{ fill: '#9B9EAC' }}
+          />
+          <YAxis
+            orientation="right"
+            domain={[minScale, maxScale]}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: '#9B9EAC' }}
+            ticks={ticks}
+          />
+          {ticks.map((tick, index) => (
+            <ReferenceLine
+              key={index}
+              y={tick}
+              stroke="#DEDEDE"
+              strokeDasharray="3 3"
+            />
+          ))}
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#E60000',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '5px',
+              fontSize: '14px',
+            }}
+            itemStyle={{ color: '#FFFFFF' }}
+            labelStyle={{ display: 'none' }}
+            cursor={{ fill: 'rgba(196, 196, 196, 0.5)' }}
+          />
+          <Bar
+            dataKey="kilogram"
+            barSize={7}
+            fill="#282D30"
+            radius={[3, 3, 0, 0]}
+            shape={<CustomBar />}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
+export default BarChartComponent

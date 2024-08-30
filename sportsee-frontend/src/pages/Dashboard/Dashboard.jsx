@@ -13,7 +13,7 @@ import fatIcon from '../../assets/icons/fat-icon.png'
 
 //components
 import Figure from '../../components/figure/Figure'
-import BarChart from '../../components/graphs/bars/Bars'
+import BarChartComponent from '../../components/graphs/bars/Bars'
 
 const Dashboard = ({ isMock }) => {
   const { id } = useParams() // Retrieve the user ID from the URL
@@ -80,7 +80,7 @@ const Dashboard = ({ isMock }) => {
       <div className="content">
         <div className="graphs">
           <div className="graphs__main">
-            {activity ? <BarChart data={activity} /> : 'Loading...'}{' '}
+            {activity ? <BarChartComponent data={activity} /> : 'Loading...'}{' '}
             {/* Pass activity data to BarChart */}
           </div>
           <div className="graphs__sub">TEST</div>
