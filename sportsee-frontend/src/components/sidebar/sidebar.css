@@ -10,17 +10,6 @@
   height: 100%;
   min-height: 700px;
 }
-.sidebar__icons {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-}
-.sidebar__icons img {
-  cursor: pointer;
-}
 .sidebar__copyrights {
   position: fixed;
   color: #fff;

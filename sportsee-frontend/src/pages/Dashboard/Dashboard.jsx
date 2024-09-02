@@ -26,10 +26,8 @@ const Dashboard = ({ isMock }) => {
         const userModel = await getUser(id, isMock)
 
         setUser(userModel)
-        console.log('User Data:', userModel)
 
         const activityData = await getUserActivity(id, isMock)
-        console.log('Activity Data:', activityData)
         setActivity(activityData)
       } catch (error) {
         console.error('Error:', error)

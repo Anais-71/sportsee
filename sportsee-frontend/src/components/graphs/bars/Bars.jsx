@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BarChart,
   Bar,
@@ -6,9 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
-  ReferenceLine,
+  Rectangle,
 } from 'recharts'
 import './bars.css'
 
@@ -24,13 +23,52 @@ const CustomBar = (props) => {
         fill={fill}
         rx={3}
         ry={3}
+        className="graph__bar"
       />
-      <rect x={x} y={y + height - 4} width={width} height={4} fill={fill} />
+      <rect
+        x={x}
+        y={y + height - 4}
+        width={width}
+        height={4}
+        fill={fill}
+        className="graph__bar-bottom"
+      />
     </g>
   )
 }
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: '#E60000',
+          color: '#FFFFFF',
+          border: 'none',
+          padding: '5px 10px',
+          fontSize: '0.500rem',
+          fontWeight: '500',
+          height: '63px',
+          width: '39px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '26px',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <p style={{ margin: 0 }}>{`${payload[0].value}kg`}</p>
+        <p style={{ margin: 0 }}>{`${payload[1].value}kCal`}</p>
+      </div>
+    )
+  }
+
+  return null
+}
+
 function BarChartComponent({ data }) {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+
   if (!data || !data.sessions) return null
 
   const formattedData = data.sessions.map((session) => ({
@@ -38,20 +76,27 @@ function BarChartComponent({ data }) {
       day: 'numeric',
     }),
     kilogram: session.kilogram,
+    calories: session.calories,
   }))
 
   const values = formattedData.map((d) => d.kilogram)
   const maxValue = Math.max(...values)
   const minValue = Math.min(...values)
 
-  // Ajustement de l'échelle minimale et maximale
   let minScale = minValue - 1
   let maxScale = maxValue
 
-  // Création de tous les ticks pour l'axe Y
   const ticks = []
   for (let i = minScale; i <= maxScale; i++) {
     ticks.push(i)
+  }
+
+  const handleMouseOver = (data, index) => {
+    setHoveredIndex(index)
+  }
+
+  const handleMouseOut = () => {
+    setHoveredIndex(null)
   }
 
   return (
@@ -59,7 +104,7 @@ function BarChartComponent({ data }) {
       <div className="graph__header">
         <h2 className="graph__header--title">Activité quotidienne</h2>
         <ul
-          className="recharts-default-legend"
+          className="graph__header--legend"
           style={{
             padding: 0,
             margin: 0,
@@ -68,84 +113,114 @@ function BarChartComponent({ data }) {
           }}
         >
           <li
-            className="recharts-legend-item legend-item-0"
+            className="graph__header--legend--item"
             style={{ display: 'inline-block', marginRight: '10px' }}
           >
             <svg
-              className="recharts-surface"
+              className="graph__header--legend--icon"
               width="8"
               height="8"
-              viewBox="0 0 32 32"
+              viewBox="0 0 8 8"
               style={{
                 display: 'inline-block',
                 verticalAlign: 'middle',
                 marginRight: '4px',
               }}
             >
-              <path
-                fill="#282D30"
-                cx="16"
-                cy="16"
-                className="recharts-symbols"
-                transform="translate(16, 16)"
-                d="M16,0A16,16,0,1,1,-16,0A16,16,0,1,1,16,0"
-              ></path>
+              <circle cx="4" cy="4" r="4" fill="#282D30" />
             </svg>
-            <span
-              className="recharts-legend-item-text"
-              style={{ color: '#282D30' }}
+            <span className="graph__header--legend--txt">Poids (kg)</span>
+          </li>
+          <li
+            className="graph__header--legend--item"
+            style={{ display: 'inline-block', marginRight: '10px' }}
+          >
+            <svg
+              className="graph__header--legend--icon"
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                marginRight: '4px',
+              }}
             >
-              <span className="graph__header--legend--txt">Poids (kg)</span>
+              <circle cx="4" cy="4" r="4" fill="#E60000" />
+            </svg>
+            <span className="graph__header--legend--txt">
+              Calories brûlées (kCal)
             </span>
           </li>
         </ul>
       </div>
-      <ResponsiveContainer width="100%" height={320}>
+      <ResponsiveContainer width="96%" height="80%">
         <BarChart
           data={formattedData}
-          margin={{ top: 40, right: 29, bottom: 30, left: 43 }}
+          margin={{ top: 40, right: 20, bottom: 20, left: 43 }}
+          barGap={8}
+          onMouseOver={(data, index) => handleMouseOver(data, index)}
+          onMouseOut={handleMouseOut}
         >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid
+            className="graph__content"
+            strokeDasharray="3 3"
+            vertical={false}
+          />
           <XAxis
             dataKey="date"
+            scale="point"
             tickLine={false}
             axisLine={{ stroke: '#DEDEDE' }}
             tick={{ fill: '#9B9EAC' }}
+            tickMargin={16}
+            padding={{ left: 10, right: 10 }}
+            className="graph__x"
           />
           <YAxis
+            yAxisId="left"
             orientation="right"
             domain={[minScale, maxScale]}
             axisLine={false}
             tickLine={false}
+            tickMargin={43}
             tick={{ fill: '#9B9EAC' }}
             ticks={ticks}
           />
-          {ticks.map((tick, index) => (
-            <ReferenceLine
-              key={index}
-              y={tick}
-              stroke="#DEDEDE"
-              strokeDasharray="3 3"
+          <YAxis yAxisId="right" hide={true} className="graph__y" />
+          <Tooltip content={<CustomTooltip />} />
+          {hoveredIndex !== null && (
+            <Rectangle
+              x={hoveredIndex * 20} // Adjust the calculation based on your bar width and gap
+              y={0}
+              width={20}
+              height={300} // Adjust this based on the chart's height
+              fill="rgba(196, 196, 196, 0.5)"
+              className="highlight-rectangle"
             />
-          ))}
-          <Tooltip
-            contentStyle={{
-              backgroundColor: '#E60000',
-              color: '#FFFFFF',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '14px',
-            }}
-            itemStyle={{ color: '#FFFFFF' }}
-            labelStyle={{ display: 'none' }}
-            cursor={{ fill: 'rgba(196, 196, 196, 0.5)' }}
-          />
+          )}
           <Bar
+            yAxisId="left"
             dataKey="kilogram"
             barSize={7}
             fill="#282D30"
             radius={[3, 3, 0, 0]}
             shape={<CustomBar />}
+            className="graph__bar--kilogram"
+            onMouseOver={(data, index) => handleMouseOver(data, index)}
+            onMouseOut={handleMouseOut}
+          />
+
+          <Bar
+            yAxisId="right"
+            dataKey="calories"
+            barSize={7}
+            fill="#E60000"
+            radius={[3, 3, 0, 0]}
+            shape={<CustomBar />}
+            className="graph__bar--calories"
+            onMouseOver={(data, index) => handleMouseOver(data, index)}
+            onMouseOut={handleMouseOut}
           />
         </BarChart>
       </ResponsiveContainer>
