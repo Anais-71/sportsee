@@ -66,6 +66,23 @@ const CustomTooltip = ({ active, payload }) => {
   return null
 }
 
+function CustomCursor({ x, width }) {
+  const cursorWidth = 56
+  const cursorX = x + width / 2 - cursorWidth / 2
+  const cursorY = 39 // Ajuste cette valeur pour descendre le curseur
+
+  return (
+    <rect
+      x={cursorX}
+      y={cursorY}
+      width={cursorWidth}
+      height="65%"
+      fill="#C4C4C480"
+      className="graph__cursor"
+    />
+  )
+}
+
 function BarChartComponent({ data }) {
   const [hoveredIndex, setHoveredIndex] = useState(null)
 
@@ -188,7 +205,7 @@ function BarChartComponent({ data }) {
             ticks={ticks}
           />
           <YAxis yAxisId="right" hide={true} className="graph__y" />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
           {hoveredIndex !== null && (
             <Rectangle
               x={hoveredIndex * 20} // Adjust the calculation based on your bar width and gap
