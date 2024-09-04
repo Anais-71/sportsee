@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getUser, getUserActivity } from '../../utils/api'
+import {
+  getUser,
+  getUserActivity,
+  getUserAverageSessions,
+} from '../../utils/api'
 
 //css
 import './dashboard.css'
@@ -14,28 +18,37 @@ import fatIcon from '../../assets/icons/fat-icon.png'
 //components
 import Figure from '../../components/figure/Figure'
 import BarChartComponent from '../../components/graphs/bars/Bars'
+import LinesChartComponent from '../../components/graphs/lines/Lines'
 
 const Dashboard = ({ isMock }) => {
   const { id } = useParams() // Retrieve the user ID from the URL
   const [user, setUser] = useState(null) // State to store user data
   const [activity, setActivity] = useState(null) // State to store user activity data
+  const [sessions, setSessions] = useState(null) // State to store user sessions data
 
   useEffect(() => {
     async function getDatas() {
       try {
         const userModel = await getUser(id, isMock)
-
         setUser(userModel)
 
         const activityData = await getUserActivity(id, isMock)
         setActivity(activityData)
+
+        const sessionsData = await getUserAverageSessions(id, isMock)
+
+        if (Array.isArray(sessionsData)) {
+          setSessions(sessionsData)
+        } else {
+          console.error('Sessions data is not in expected format.')
+        }
       } catch (error) {
         console.error('Error:', error)
       }
     }
 
     getDatas()
-  }, [id, isMock]) // Dependencies for useEffect: runs whenever id or isMock changes
+  }, [id, isMock])
 
   const figuresData = user
     ? [
@@ -81,7 +94,26 @@ const Dashboard = ({ isMock }) => {
             {activity ? <BarChartComponent data={activity} /> : 'Loading...'}{' '}
             {/* Pass activity data to BarChart */}
           </div>
-          <div className="graphs__sub">TEST</div>
+          <div className="graphs__sub">
+            <div className="graphs__sub--lines">
+              {sessions ? (
+                <LinesChartComponent data={sessions} />
+              ) : (
+                'Loading...'
+              )}{' '}
+              {/* Pass session data to LineChart */}
+            </div>
+
+            <div className="graphs__sub--radar">
+              TEST
+              {/* {activity ? <RadarChartComponent data={activity} /> : 'Loading...'}{' '} */}
+            </div>
+
+            <div className="graphs__sub--gauge">
+              TEST
+              {/* {activity ? <GaugeChartComponent data={activity} /> : 'Loading...'}{' '} */}
+            </div>
+          </div>
         </div>
         <div className="figures">
           {figuresData.map((figure, index) => (

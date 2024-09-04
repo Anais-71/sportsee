@@ -1,0 +1,49 @@
+@import '../../../assets/style/variables';
+
+.graph__lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: visible;
+  position: absolute;
+  height: 263px;
+
+  &--title {
+    font-size: $normal;
+    text-wrap: wrap;
+    margin-top: 29px;
+    margin-left: 34px;
+    margin-right: 76px;
+    opacity: 50%;
+  }
+
+  &--content {
+    width: 100%;
+  }
+
+  &--tooltip {
+    width: 39px;
+    height: 25px;
+    background-color: $white;
+    color: $black;
+    font-weight: $bold;
+    font-size: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--ticks {
+    font-size: $small;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    opacity: 50%;
+    margin-bottom: 16px;
+  }
+}
+.recharts-responsive-container {
+  overflow: visible;
+}

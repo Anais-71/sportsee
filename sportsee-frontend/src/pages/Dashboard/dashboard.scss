@@ -25,11 +25,39 @@
   .graphs {
     width: 74%;
     gap: 30px;
+    margin-bottom: 86px;
 
     &__main {
       background-color: $background;
       width: 100%;
       margin-bottom: 30px;
+    }
+
+    &__sub {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      height: 263px;
+      width: 100%;
+
+      &--lines {
+        background-color: $red;
+        border-radius: 5px;
+        width: 100%;
+        color: $white;
+      }
+
+      &--radar {
+        background-color: #282d30;
+        border-radius: 5px;
+        width: 100%;
+      }
+
+      &--gauge {
+        background-color: #fbfbfb;
+        border-radius: 5px;
+        width: 100%;
+      }
     }
   }
 

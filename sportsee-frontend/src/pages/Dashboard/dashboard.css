@@ -21,11 +21,35 @@
 .main .graphs {
   width: 74%;
   gap: 30px;
+  margin-bottom: 86px;
 }
 .main .graphs__main {
   background-color: #fbfbfb;
   width: 100%;
   margin-bottom: 30px;
+}
+.main .graphs__sub {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  height: 263px;
+  width: 100%;
+}
+.main .graphs__sub--lines {
+  background-color: #ff0000;
+  border-radius: 5px;
+  width: 100%;
+  color: #fff;
+}
+.main .graphs__sub--radar {
+  background-color: #282d30;
+  border-radius: 5px;
+  width: 100%;
+}
+.main .graphs__sub--gauge {
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  width: 100%;
 }
 .main .figures {
   width: 23%;
