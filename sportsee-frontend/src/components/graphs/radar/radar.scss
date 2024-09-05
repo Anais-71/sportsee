@@ -1,0 +1,11 @@
+@import '../../../assets/style/variables';
+
+.graph__radar {
+  width: 100%;
+  height: 100%;
+
+  &--tick {
+    font-size: $small;
+    fill: $white;
+  }
+}

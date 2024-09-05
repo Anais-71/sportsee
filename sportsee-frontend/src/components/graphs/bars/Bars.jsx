@@ -69,7 +69,7 @@ const CustomTooltip = ({ active, payload }) => {
 function CustomCursor({ x, width }) {
   const cursorWidth = 56
   const cursorX = x + width / 2 - cursorWidth / 2
-  const cursorY = 39 // Ajuste cette valeur pour descendre le curseur
+  const cursorY = 39
 
   return (
     <rect

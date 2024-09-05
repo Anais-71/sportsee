@@ -4,6 +4,7 @@ import {
   getUser,
   getUserActivity,
   getUserAverageSessions,
+  getUserPerformance,
 } from '../../utils/api'
 
 //css
@@ -19,12 +20,14 @@ import fatIcon from '../../assets/icons/fat-icon.png'
 import Figure from '../../components/figure/Figure'
 import BarChartComponent from '../../components/graphs/bars/Bars'
 import LinesChartComponent from '../../components/graphs/lines/Lines'
+import RadarChartComponent from '../../components/graphs/radar/Radar'
 
 const Dashboard = ({ isMock }) => {
   const { id } = useParams() // Retrieve the user ID from the URL
   const [user, setUser] = useState(null) // State to store user data
   const [activity, setActivity] = useState(null) // State to store user activity data
   const [sessions, setSessions] = useState(null) // State to store user sessions data
+  const [performance, setPerformance] = useState(null) // State to store user performances
 
   useEffect(() => {
     async function getDatas() {
@@ -36,12 +39,10 @@ const Dashboard = ({ isMock }) => {
         setActivity(activityData)
 
         const sessionsData = await getUserAverageSessions(id, isMock)
+        setSessions(sessionsData)
 
-        if (Array.isArray(sessionsData)) {
-          setSessions(sessionsData)
-        } else {
-          console.error('Sessions data is not in expected format.')
-        }
+        const performanceData = await getUserPerformance(id, isMock)
+        setPerformance(performanceData)
       } catch (error) {
         console.error('Error:', error)
       }
@@ -105,8 +106,12 @@ const Dashboard = ({ isMock }) => {
             </div>
 
             <div className="graphs__sub--radar">
-              TEST
-              {/* {activity ? <RadarChartComponent data={activity} /> : 'Loading...'}{' '} */}
+              {sessions ? (
+                <RadarChartComponent data={performance} />
+              ) : (
+                'Loading...'
+              )}{' '}
+              {/* Pass session data to RadarChart */}
             </div>
 
             <div className="graphs__sub--gauge">

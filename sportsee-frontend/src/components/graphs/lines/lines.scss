@@ -44,6 +44,14 @@
     margin-bottom: 16px;
   }
 }
-.recharts-responsive-container {
-  overflow: visible;
+.graph__radar--polar--grid .recharts-polar-grid-line {
+  stroke: transparent; /* Masquer les lignes de grille polaires */
+}
+
+.graph__radar--polar--grid .recharts-polar-grid-radial {
+  display: none; /* Masquer les lignes radiales */
+}
+
+.graph__radar--polar--grid .recharts-polar-grid-inner {
+  display: none; /* Masquer les lignes internes si nécessaire */
 }

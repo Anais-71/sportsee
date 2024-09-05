@@ -1,0 +1,8 @@
+.graph__radar {
+  width: 100%;
+  height: 100%;
+}
+.graph__radar--tick {
+  font-size: 0.75rem;
+  fill: #fff;
+}/*# sourceMappingURL=radar.css.map */

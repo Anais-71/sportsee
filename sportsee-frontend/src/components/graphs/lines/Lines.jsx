@@ -6,7 +6,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Rectangle,
 } from 'recharts'
 
 // CSS
@@ -44,7 +43,10 @@ function LinesChartComponent({ data }) {
 
   return (
     <div className="graph__lines">
-      <h2 className="graph__lines--title">Durée moyenne des sessions</h2>
+      <h2 className="graph__lines--title">
+        Durée moyenne des <br />
+        sessions
+      </h2>
 
       <ResponsiveContainer
         width="100%"

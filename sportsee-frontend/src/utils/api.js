@@ -4,7 +4,7 @@ import {
   USER_MAIN_DATA,
   USER_ACTIVITY,
   USER_AVERAGE_SESSIONS,
-  // USER_PERFORMANCE,
+  USER_PERFORMANCE,
 } from '../data'
 
 export const getUser = async (id, isMock) => {
@@ -99,4 +99,57 @@ export const getUserAverageSessions = async (id, isMock) => {
   }
 
   return sessionsData
+}
+
+// Nouvelle fonction pour récupérer les performances
+export const getUserPerformance = async (id, isMock) => {
+  if (!id) {
+    console.error('User ID is not provided.')
+    return null
+  }
+
+  let performanceData
+
+  const subjectMapping = {
+    cardio: null,
+    energy: 'Énergie',
+    endurance: 'Endurance',
+    strength: 'Force',
+    intensity: 'Intensité',
+    speed: 'Vitesse',
+  }
+
+  if (isMock) {
+    const performance = USER_PERFORMANCE.find(
+      (performance) => performance.userId === parseInt(id),
+    )
+    if (performance) {
+      performanceData = performance.data
+        .filter((item) => subjectMapping[performance.kind[item.kind]] !== null) // Supprime "cardio"
+        .map((item) => ({
+          subject: subjectMapping[performance.kind[item.kind]], // Remplace les noms
+          value: item.value,
+        }))
+    } else {
+      throw new Error('Performance data not found')
+    }
+  } else {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/user/${id}/performance`,
+      )
+      const { data, kind } = response.data.data
+      performanceData = data
+        .filter((item) => subjectMapping[kind[item.kind]] !== null) // Supprime "cardio"
+        .map((item) => ({
+          subject: subjectMapping[kind[item.kind]], // Remplace les noms
+          value: item.value,
+        }))
+    } catch (error) {
+      console.error('Error fetching performance data:', error)
+      throw error
+    }
+  }
+
+  return performanceData
 }
