@@ -40,6 +40,8 @@
   border-radius: 5px;
   width: 100%;
   color: #fff;
+  padding: 0px;
+  margin: 0px;
 }
 .main .graphs__sub--radar {
   background-color: #282d30;

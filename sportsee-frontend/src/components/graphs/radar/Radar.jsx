@@ -41,8 +41,15 @@ function RadarChartComponent({ data }) {
   return (
     <div className="graph__radar">
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-          <PolarGrid className="graph__radar--polar--grid" />
+        <RadarChart cx="50%" cy="50%" outerRadius={90} data={data}>
+          <PolarGrid
+            className="graph__radar--polar--grid"
+            radialLines={false}
+            stroke="#FFFFFF"
+            strokeWidth={1}
+            polarRadius={[11.25, 22.5, 45, 67.5, 90]}
+            gridType="polygon"
+          />
           <PolarAngleAxis dataKey="subject" tick={<CustomAngleTick />} />
           <PolarRadiusAxis
             className="graph__radar--polar--radius"

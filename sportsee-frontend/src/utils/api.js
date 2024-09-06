@@ -7,6 +7,14 @@ import {
   USER_PERFORMANCE,
 } from '../data'
 
+/**
+ * Fetches user data by ID.
+ *
+ * @param {number} id - The ID of the user.
+ * @param {boolean} isMock - Determines if mock data should be used.
+ * @returns {Promise<User|null>} A promise that resolves to a User instance or null if no ID is provided.
+ * @throws {Error} Throws an error if the user is not found or there is a problem with the request.
+ */
 export const getUser = async (id, isMock) => {
   if (!id) {
     console.error('User ID is not provided.')
@@ -18,7 +26,7 @@ export const getUser = async (id, isMock) => {
   if (isMock) {
     const user = USER_MAIN_DATA.find((user) => user.id === parseInt(id))
     if (user) {
-      // Harmonisation des scores
+      // Harmonize the score key
       if (user.todayScore !== undefined) {
         user.score = user.todayScore
         delete user.todayScore
@@ -32,7 +40,7 @@ export const getUser = async (id, isMock) => {
       const response = await axios.get(`http://localhost:3000/user/${id}`)
       const user = response.data.data
 
-      // Harmonisation des scores
+      // Harmonize the score key
       if (user.todayScore !== undefined) {
         user.score = user.todayScore
         delete user.todayScore
@@ -48,7 +56,14 @@ export const getUser = async (id, isMock) => {
   return new User(userData)
 }
 
-// Nouvelle fonction pour récupérer les données d'activité
+/**
+ * Fetches user activity data by ID.
+ *
+ * @param {number} id - The ID of the user.
+ * @param {boolean} isMock - Determines if mock data should be used.
+ * @returns {Promise<Object|null>} A promise that resolves to the user's activity data or null if no ID is provided.
+ * @throws {Error} Throws an error if the activity data is not found or there is a problem with the request.
+ */
 export const getUserActivity = async (id, isMock) => {
   if (!id) {
     console.error('User ID is not provided.')
@@ -81,7 +96,14 @@ export const getUserActivity = async (id, isMock) => {
   return activityData
 }
 
-// Nouvelle fonction pour récupérer les durées de session moyenne
+/**
+ * Fetches average session durations for the user by ID.
+ *
+ * @param {number} id - The ID of the user.
+ * @param {boolean} isMock - Determines if mock data should be used.
+ * @returns {Promise<Object|null>} A promise that resolves to the user's average sessions data or null if no ID is provided.
+ * @throws {Error} Throws an error if the sessions data is not found or there is a problem with the request.
+ */
 export const getUserAverageSessions = async (id, isMock) => {
   if (!id) {
     console.error('User ID is not provided.')
@@ -114,7 +136,14 @@ export const getUserAverageSessions = async (id, isMock) => {
   return sessionsData
 }
 
-// Nouvelle fonction pour récupérer les performances
+/**
+ * Fetches the user's performance data by ID.
+ *
+ * @param {number} id - The ID of the user.
+ * @param {boolean} isMock - Determines if mock data should be used.
+ * @returns {Promise<Object|null>} A promise that resolves to the user's performance data or null if no ID is provided.
+ * @throws {Error} Throws an error if the performance data is not found or there is a problem with the request.
+ */
 export const getUserPerformance = async (id, isMock) => {
   if (!id) {
     console.error('User ID is not provided.')

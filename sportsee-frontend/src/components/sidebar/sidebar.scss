@@ -9,11 +9,18 @@
   background-color: $black;
   width: 8%;
   max-width: 120px;
-  height: 100%;
+  height: 950px;
   min-height: 700px;
 
+  &__icons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   &__copyrights {
-    position: fixed;
+    position: absolute;
+    padding-left: 59px;
     color: $white;
     transform: rotate(-90deg);
     font-weight: $bold;

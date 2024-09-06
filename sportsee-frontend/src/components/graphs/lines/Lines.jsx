@@ -36,6 +36,7 @@ function CustomCursor({ points }) {
     />
   )
 }
+
 function LinesChartComponent({ data }) {
   if (!data || data.length === 0) {
     return <p>No data available</p>
@@ -48,27 +49,25 @@ function LinesChartComponent({ data }) {
         sessions
       </h2>
 
-      <ResponsiveContainer
-        width="100%"
-        height={130}
-        style={{ overflow: 'visible' }}
-      >
-        <LineChart data={data}>
-          <CartesianGrid display="none" />
-          <XAxis hide={true} />
-          <YAxis hide={true} />
-          <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
-          <Line
-            type="monotone"
-            dataKey="sessionLength"
-            stroke="#fff"
-            strokeWidth={2}
-            strokeOpacity={0.5}
-            dot={false}
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className="graph__lines--container">
+        <ResponsiveContainer width="100%" height={263}>
+          <LineChart data={data}>
+            <CartesianGrid display="none" />
+            <XAxis hide={true} />
+            <YAxis hide={true} />
+            <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
+            <Line
+              type="monotone"
+              dataKey="sessionLength"
+              stroke="#fff"
+              strokeWidth={2}
+              strokeOpacity={0.5}
+              dot={false}
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
       <div className="graph__lines--ticks">
         <p>L</p>

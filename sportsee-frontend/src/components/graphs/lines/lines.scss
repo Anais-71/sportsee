@@ -1,25 +1,28 @@
 @import '../../../assets/style/variables';
 
 .graph__lines {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  overflow: visible;
-  position: absolute;
+  justify-content: center;
+  width: 100%;
   height: 263px;
+  padding: 0;
+  margin: 0;
 
   &--title {
+    position: absolute;
     font-size: $normal;
-    text-wrap: wrap;
-    margin-top: 29px;
-    margin-left: 34px;
+    top: 29px;
+    left: 34px;
     margin-right: 76px;
     opacity: 50%;
   }
 
-  &--content {
+  &--container {
     width: 100%;
+    height: 100%; /* Assurez-vous que le conteneur occupe toute la hauteur */
   }
 
   &--tooltip {
@@ -35,23 +38,13 @@
   }
 
   &--ticks {
+    position: absolute;
     font-size: $small;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
     width: 80%;
     opacity: 50%;
-    margin-bottom: 16px;
+    bottom: 16px;
   }
-}
-.graph__radar--polar--grid .recharts-polar-grid-line {
-  stroke: transparent; /* Masquer les lignes de grille polaires */
-}
-
-.graph__radar--polar--grid .recharts-polar-grid-radial {
-  display: none; /* Masquer les lignes radiales */
-}
-
-.graph__radar--polar--grid .recharts-polar-grid-inner {
-  display: none; /* Masquer les lignes internes si nécessaire */
 }
