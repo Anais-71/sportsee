@@ -18,6 +18,11 @@ export const getUser = async (id, isMock) => {
   if (isMock) {
     const user = USER_MAIN_DATA.find((user) => user.id === parseInt(id))
     if (user) {
+      // Harmonisation des scores
+      if (user.todayScore !== undefined) {
+        user.score = user.todayScore
+        delete user.todayScore
+      }
       userData = { data: user }
     } else {
       throw new Error('User not found')
@@ -25,7 +30,15 @@ export const getUser = async (id, isMock) => {
   } else {
     try {
       const response = await axios.get(`http://localhost:3000/user/${id}`)
-      userData = response.data
+      const user = response.data.data
+
+      // Harmonisation des scores
+      if (user.todayScore !== undefined) {
+        user.score = user.todayScore
+        delete user.todayScore
+      }
+
+      userData = { data: user }
     } catch (error) {
       console.error('Error fetching user data:', error)
       throw error
@@ -111,7 +124,7 @@ export const getUserPerformance = async (id, isMock) => {
   let performanceData
 
   const subjectMapping = {
-    cardio: null,
+    cardio: 'Cardio',
     energy: 'Énergie',
     endurance: 'Endurance',
     strength: 'Force',
@@ -125,9 +138,9 @@ export const getUserPerformance = async (id, isMock) => {
     )
     if (performance) {
       performanceData = performance.data
-        .filter((item) => subjectMapping[performance.kind[item.kind]] !== null) // Supprime "cardio"
+        .filter((item) => subjectMapping[performance.kind[item.kind]] !== null)
         .map((item) => ({
-          subject: subjectMapping[performance.kind[item.kind]], // Remplace les noms
+          subject: subjectMapping[performance.kind[item.kind]],
           value: item.value,
         }))
     } else {
@@ -140,9 +153,9 @@ export const getUserPerformance = async (id, isMock) => {
       )
       const { data, kind } = response.data.data
       performanceData = data
-        .filter((item) => subjectMapping[kind[item.kind]] !== null) // Supprime "cardio"
+        .filter((item) => subjectMapping[kind[item.kind]] !== null)
         .map((item) => ({
-          subject: subjectMapping[kind[item.kind]], // Remplace les noms
+          subject: subjectMapping[kind[item.kind]],
           value: item.value,
         }))
     } catch (error) {

@@ -21,6 +21,7 @@ import Figure from '../../components/figure/Figure'
 import BarChartComponent from '../../components/graphs/bars/Bars'
 import LinesChartComponent from '../../components/graphs/lines/Lines'
 import RadarChartComponent from '../../components/graphs/radar/Radar'
+import GaugeChartComponent from '../../components/graphs/gauge/Gauge'
 
 const Dashboard = ({ isMock }) => {
   const { id } = useParams() // Retrieve the user ID from the URL
@@ -95,6 +96,7 @@ const Dashboard = ({ isMock }) => {
             {activity ? <BarChartComponent data={activity} /> : 'Loading...'}{' '}
             {/* Pass activity data to BarChart */}
           </div>
+
           <div className="graphs__sub">
             <div className="graphs__sub--lines">
               {sessions ? (
@@ -106,7 +108,7 @@ const Dashboard = ({ isMock }) => {
             </div>
 
             <div className="graphs__sub--radar">
-              {sessions ? (
+              {performance ? (
                 <RadarChartComponent data={performance} />
               ) : (
                 'Loading...'
@@ -115,11 +117,11 @@ const Dashboard = ({ isMock }) => {
             </div>
 
             <div className="graphs__sub--gauge">
-              TEST
-              {/* {activity ? <GaugeChartComponent data={activity} /> : 'Loading...'}{' '} */}
+              {user ? <GaugeChartComponent data={user} /> : 'Loading...'}{' '}
             </div>
           </div>
         </div>
+
         <div className="figures">
           {figuresData.map((figure, index) => (
             <Figure
