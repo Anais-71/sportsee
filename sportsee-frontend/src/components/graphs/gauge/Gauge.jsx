@@ -25,6 +25,16 @@ const GaugeChartComponent = ({ data }) => {
       <h2 className="graph__gauge--title">Score</h2>
       <ResponsiveContainer width="100%" height={263}>
         <PieChart>
+          {/* Pie pour l'intérieur blanc */}
+          <Pie
+            data={[{ name: 'Background', value: 100 }]}
+            dataKey="value"
+            outerRadius={70} // Doit correspondre à innerRadius de la première Pie
+            fill="#fff" // Couleur blanche pour l'intérieur
+            startAngle={90}
+            endAngle={450}
+          />
+          {/* Pie pour le reste du graphique */}
           <Pie
             className="graph__gauge--pie"
             data={pieData}

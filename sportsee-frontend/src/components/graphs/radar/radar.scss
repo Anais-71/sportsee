@@ -11,13 +11,13 @@
 }
 
 .graph__radar--polar--grid .recharts-polar-grid-line {
-  stroke: transparent; /* Masquer les lignes de grille polaires */
+  stroke: transparent;
 }
 
 .graph__radar--polar--grid .recharts-polar-grid-radial {
-  display: none; /* Masquer les lignes radiales */
+  display: none;
 }
 
 .graph__radar--polar--grid .recharts-polar-grid-inner {
-  display: none; /* Masquer les lignes internes si nécessaire */
+  display: none;
 }

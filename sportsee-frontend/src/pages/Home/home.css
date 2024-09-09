@@ -1,0 +1,30 @@
+.home {
+  position: absolute;
+  left: 15%;
+  top: 16%;
+  width: 78%;
+  height: 76%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home__karl {
+  height: 64px;
+  width: 45%;
+  border: none;
+  border-radius: 5px;
+  background-color: #e60000;
+  color: #fff;
+  font-size: 1.625rem;
+  cursor: pointer;
+}
+.home__cecilia {
+  height: 64px;
+  width: 45%;
+  border: 1px solid #020203;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #e60000;
+  font-size: 1.625rem;
+  cursor: pointer;
+}/*# sourceMappingURL=home.css.map */

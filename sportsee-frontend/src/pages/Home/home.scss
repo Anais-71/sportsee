@@ -1,0 +1,34 @@
+@import '../../assets/style/variables';
+
+.home {
+  position: absolute;
+  left: 15%;
+  top: 16%;
+  width: 78%;
+  height: 76%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__karl {
+    height: 64px;
+    width: 45%;
+    border: none;
+    border-radius: 5px;
+    background-color: $main;
+    color: $white;
+    font-size: $title-small;
+    cursor: pointer;
+  }
+
+  &__cecilia {
+    height: 64px;
+    width: 45%;
+    border: 1px solid $black;
+    border-radius: 5px;
+    background-color: $white;
+    color: $main;
+    font-size: $title-small;
+    cursor: pointer;
+  }
+}

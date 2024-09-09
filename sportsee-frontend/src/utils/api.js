@@ -5,7 +5,7 @@ import {
   USER_ACTIVITY,
   USER_AVERAGE_SESSIONS,
   USER_PERFORMANCE,
-} from '../data'
+} from '../mockData'
 
 /**
  * Fetches user data by ID.
