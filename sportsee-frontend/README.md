@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+Project Overview
+This project is a React application that uses axios to fetch user data and display various user-related statistics (e.g., performance, activity) through visualizations. The application supports two modes: development, using mock data, and production, fetching real data from an external backend.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The backend is hosted in a separate repository. See the Backend Information section for more details.
 
-## Available Scripts
+Backend Information
+The backend for this project is hosted in a separate repository. To access and configure the backend, please refer to the appropriate repository. Ensure that the backend is running on http://localhost:3000 or adjust the API_BASE_URL in your configuration.
 
+Environment Variables
+This project uses environment variables to differentiate between development and production modes.
+
+In development mode, mock data is used instead of making requests to the backend. This is controlled via the environment variable REACT_APP_ENV.
+To configure environment variables:
+
+Create a .env file in the root directory.
+Add the following configuration to switch between development and production:
+bash
+Copier le code
+
+# For development mode (using mock data)
+
+REACT_APP_ENV=development
+
+# For production mode (fetching real data)
+
+REACT_APP_ENV=production
+The REACT_APP_ENV variable is used in the application to decide whether to fetch data from the backend or use mock data.
+
+Available Scripts
 In the project directory, you can run:
 
-### `yarn start`
+yarn start
+Runs the app in production mode.
+Open http://localhost:3000 to view it in your browser.
+The page will reload when you make changes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+yarn dev
+Runs the app in development mode.
+Open http://localhost:3000 to view it in your browser.
+The page will reload when you make changes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+yarn test
+Launches the test runner in the interactive watch mode.
 
-### `yarn test`
+yarn build
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for best performance.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+yarn eject
+If you need to customize the configuration, run yarn eject to expose all configuration files. This is irreversible.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Learn More
+To learn more about Create React App, check the Create React App documentation.
+To learn more about React, visit the React documentation.
